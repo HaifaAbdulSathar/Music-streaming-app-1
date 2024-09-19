@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>userhome</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body>
+    <section class="h-100 gradient-form" style="background-color: #c1bca2;">
+        <div class="container py-5 h-100">
+          <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-xl-10">
+              <div class="card rounded-3 text-black">
+                <div class="row g-0">
+                    <div class="card-body p-md-5 mx-md-4">
+                        <div class="mx-auto p-2" style="width: 350px;">
+                            <h1>User Home</h1></div>
+    <div style="text-align: right;"><p><a class="btn btn-outline-secondary" href="/creatorregister" >Register as a creator</a></p></div>
+    <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" class="scrollspy-example bg-body-tertiary p-3 rounded-2" tabindex="0">
+        <h3>All Songs</h3>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <form class="d-flex" role="search" action="/search" method="POST">
+                        <input class="form-control me-2" type="search" placeholder="Search Song or Artist" aria-label="Search" name="search_key">
+                        <button class="btn btn-outline-success" type="submit">Search</button>
+                      </form>
+                    </div>
+                  </div>
+                </nav><br>
+            <table class="table">
+            <tr class="table-dark">
+                <td>Song</td>
+                <td>Play</td>
+                <td>Artist</td>
+                <td>Release Date</td>
+                <td>Ratings</td>
+                <td>Rate</td>
+            </tr>
+            {%for song in song_list%}
+            <tr>
+                <td>{{song.song_title}}</td>
+                <td><audio controls><source src="{{url_for('static',filename='audios/'+song.song_title)}}" type="audio/mpeg"></audio></td>
+                <td>{{song.artist}}</td>
+                <td>{{song.release_date}}</td>
+                <td>{{song.average_rating}}</td>
+                <td><a href="/rate/{{this_user.user_id}}/{{song.song_id}}">Rate</a></td>
+            </tr>
+            {%endfor%}
+        </table><br>
+    </div>
+    <h3>My Playlists</h3>   
+    <a class="btn btn-outline-secondary" href="/createplaylist/{{this_user.user_id}}">Create Playlist</a>  
+    <a class="btn btn-outline-secondary" href="/editplaylists/{{this_user.user_id}}">Edit playlists</a><br><br>
+    <p class="d-inline-flex gap-1">
+        {%for playlist in myplaylists%}
+    <button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#{{playlist.playlist_name}}" aria-expanded="false" aria-controls="{{playlist.playlist_name}}">
+        {{playlist.playlist_name}}
+      </button>
+      {%endfor%}
+    </p>
+    {%for playlist in myplaylists%}
+    <div class="collapse" id="{{playlist.playlist_name}}">
+        <div class="card card-body">
+            <ul>
+            {%for song in playlist.songs%}
+            <li>
+            {{song.song_title}}
+            <audio controls><source src="{{url_for('static',filename='audios/'+song.song_title)}}" type="audio/mpeg"></audio>
+            </li>
+            {%endfor%}
+            </ul>
+        </div>
+      </div>
+      {%endfor%}
+      <h3>All Albums</h3>
+      <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <form class="d-flex" role="search" action="/searchalbum" method="POST">
+                    <input class="form-control me-2" type="search" placeholder="Search Album or Genre" aria-label="Search" name="search_key">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                  </form>
+                </div>
+              </div>
+            </nav><br>
+        <p class="d-inline-flex gap-1">
+        {%for album in all_albums%}
+    <button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#{{album.album_title}}" aria-expanded="false" aria-controls="{{album.album_title}}">
+        {{album.album_title}}
+      </button>
+      {%endfor%}
+    </p>
+    {%for album in all_albums%}
+    <div class="collapse" id="{{album.album_title}}">
+        <div class="card card-body">
+            <ul>
+            {%for song in album.songs%}
+            <li>
+            {{song.song_title}}
+            <audio controls><source src="{{url_for('static',filename='audios/'+song.song_title)}}" type="audio/mpeg"></audio>
+            </li>
+            {%endfor%}
+            </ul>
+        </div>
+      </div>
+      {%endfor%}
+      <div class="mx-auto p-2" style="width: 150px;">
+        <a class="btn btn-outline-secondary" href="/">Log out</a>
+      </div>
+    </div>
+                  
+</div>
+</div>
+</div>
+</div>
+</section>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+</body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>admin home</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+</head>
+<body>
+    <section class="h-100 gradient-form" style="background-color: #71826e;">
+        <div class="container py-5 h-100">
+          <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-xl-10">
+              <div class="card rounded-3 text-black">
+                <div class="row g-0">
+                    <div class="card-body p-md-5 mx-md-4">
+                        <div class="mx-auto p-2" style="width: 300px;">
+                            <h1>Admin home</h1></div>
+
+    <button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#all_songs" aria-expanded="false" aria-controls="all_songs">
+        All Songs
+    </button>
+    <button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#all_users" aria-expanded="false" aria-controls="all_users">
+        All Users
+    </button>
+    <button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#all_creators" aria-expanded="false" aria-controls="all_creators">
+        All Creators
+    </button>
+    <button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#all_albums" aria-expanded="false" aria-controls="all_albums">
+        All Albums
+    </button>
+<div class="collapse" id="all_songs">
+    <div class="card card-body">
+        <table class="table">
+            <tr class="table-dark">
+                <td>Song</td>
+                <td>Play</td>
+                <td>Rating</td>
+                <td>Flagged</td>
+                <td>Flag</td>
+                <td>Unflag</td>
+            </tr>
+        {%for song in all_songs%}
+        <tr>
+        <td>{{song.song_title}}</td>
+        <td><audio controls><source src="{{url_for('static',filename='audios/'+song.song_title)}}" type="audio/mpeg"></audio></td>
+        <td>{{song.average_rating}}</td>
+        <td>{{song.flag}}</td>
+        <td><a href="/flag/{{song.song_id}}">Flag</a></td>
+        <td><a href="/unflag/{{song.song_id}}">UnFlag</a></td>
+        </tr>
+        {%endfor%}
+        <tr class="table-secondary">
+            <td colspan="3">Total songs</td>
+            <td colspan="3">{{songs_count}}</td>
+        </tr>
+        </table>
+    </div>
+  </div>
+</p>
+<div class="collapse" id="all_users">
+    <div class="card card-body">
+        <table class="table">
+            <tr class="table-dark">
+                <td>Username</td>
+                <td>email ID</td>
+                <td>Creator</td>
+                <td>Creator ID</td>
+            </tr>
+        {%for user in all_users%}
+        <tr>
+        <td>{{user.username}}</td>
+        <td>{{user.email_id}}</td>
+        <td>{{user.creator}}</td>
+        <td>{{user.creators.creator_id}}</td>    
+        </tr>
+        {%endfor%}
+        <tr class="table-secondary">
+            <td colspan="2">Total users</td>
+            <td colspan="2">{{users_count}}</td>
+        </tr>
+        </table>
+    </div>
+  </div>
+</p>
+<div class="collapse" id="all_creators">
+    <div class="card card-body">
+        <table class="table">
+            <tr class="table-dark">
+                <td>Creator ID</td>
+                <td>Blacklisted</td>
+                <td>Blacklist</td>
+                <td>Whitelist</td>
+            </tr>
+        {%for creator in all_creators%}
+        <tr>
+        <td>{{creator.creator_id}}</td>
+        <td>{{creator.blacklist}}</td>
+        <td><a href="/blacklist/{{creator.creator_id}}">Blacklist</a></td>
+        <td><a href="/whitelist/{{creator.creator_id}}">Whitelist</a></td>
+        </tr>
+        {%endfor%}
+        <tr class="table-secondary">
+            <td colspan="2">Total creators</td>
+            <td colspan="2">{{creators_count}}</td>
+        </tr>
+        </table>
+    </div>
+  </div>
+  <div class="collapse" id="all_albums">
+    <div class="card card-body">
+        <table class="table">
+            <tr class="table-dark">
+                <td>Albums</td>
+                <td>Creator ID</td>
+                <td>Genre</td>
+            </tr>
+        {%for album in all_albums%}
+        <tr>
+        <td>{{album.album_title}}</td>
+        <td>{{album.creator_id}}</td>
+        <td>{{album.genre}}</td>
+        </tr>
+        {%endfor%}
+        <tr class="table-secondary">
+            <td colspan="2">Total Albums</td>
+            <td colspan="1">{{albums_count}}</td>
+        </tr>
+        </table>
+    </div>
+  </div>
+</div>
+<div class="mx-auto p-2" style="width: 150px;">
+    <a class="btn btn-outline-secondary" href="/">Log out</a>
+  </div>          
+</div>
+</div>
+</div>
+</div>
+</section>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+</body>
+</html>

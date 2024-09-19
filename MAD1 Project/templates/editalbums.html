@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>edit albums</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+</head>
+<body>
+    <h3>Edit Albums</h3>
+    <p class="d-inline-flex gap-1">
+        {%for album in myalbums%}
+    <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#{{album.album_title}}" aria-expanded="false" aria-controls="{{album.album_title}}">
+        {{album.album_title}}
+      </button>
+      {%endfor%}
+    </p>
+    {%for album in myalbums%}
+    <div class="collapse" id="{{album.album_title}}">
+        <div class="card card-body">
+            <h4>Delete</h4>
+            <form action="/deletealbumsong/{{this_user.user_id}}/{{album.album_id}}" method="POST">
+                <ul>
+            {%for song in album.songs%}
+            <li>
+                <input type="checkbox" name="delete_checkbox" class="checkbox-class" value="{{song.song_id}}">{{song.song_title}}   
+
+            </li>
+            {%endfor%}
+            </ul>
+            <input type="submit" value="submit">
+
+        </form>
+        <h4>Add</h4>
+        <form action="/addalbumsong/{{this_user.user_id}}/{{album.album_id}}" method="POST">
+            <ul>
+            {%for song in song_list%}
+            {%if song not in album.songs%}
+            <li>
+                <input type="checkbox" name="add_checkbox" class="checkbox-class" value="{{song.song_id}}">{{song.song_title}}   
+ 
+            </li>
+            {%endif%}
+            {%endfor%}
+            </ul>
+            <input type="submit" value="submit">
+
+        </form>
+        </div>
+      </div>
+      {%endfor%}
+      <div class="mx-auto p-2" style="width: 150px;">
+        <a href="/creatorhome/{{this_user.user_id}}/{{creator_id}}">Go to Home</a>
+      </div>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+</body>
+</html>
